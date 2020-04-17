@@ -14,17 +14,17 @@ public class Order {
     private Long orderId;
     private Long productId;
 
-    @PostPersist
-    public void when_PostPersist_publishEvent(){
-        RentalRequested rentalRequested = new RentalRequested();
-        BeanUtils.copyProperties(this, rentalRequested);
-        rentalRequested.publish();
-
-        RentalCancellationOccured rentalCancellationOccured = new RentalCancellationOccured();
-        BeanUtils.copyProperties(this, rentalCancellationOccured);
-        rentalCancellationOccured.publish();
-
-    }
+//    @PostPersist
+//    public void when_PostPersist_publishEvent(){
+//        RentalRequested rentalRequested = new RentalRequested();
+//        BeanUtils.copyProperties(this, rentalRequested);
+//        rentalRequested.publish();
+//
+//        RentalCancellationOccured rentalCancellationOccured = new RentalCancellationOccured();
+//        BeanUtils.copyProperties(this, rentalCancellationOccured);
+//        rentalCancellationOccured.publish();
+//
+//    }
 
 //
 //    @PostPersist
