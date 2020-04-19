@@ -22,7 +22,7 @@ import java.util.List;
         method = RequestMethod.GET,
         produces = "application/json;charset=UTF-8")
 
-public void rentalRequest(@RequestParam Long orderId,@RequestParam Long productId,@RequestParam Long qty)
+public void rentalRequest(@RequestParam Long orderId,@RequestParam Long productId,@RequestParam Long qty,@RequestParam Long amount)
         throws Exception {
         System.out.println("##### /order/rentalRequest  called #####");
         
@@ -32,6 +32,7 @@ public void rentalRequest(@RequestParam Long orderId,@RequestParam Long productI
         rentalRequested.setOrderId(orderId);
         rentalRequested.setProductId(productId);
         rentalRequested.setQty(qty);
+        rentalRequested.setAmount(amount);
         BeanUtils.copyProperties(this, rentalRequested);
         rentalRequested.publish();
         

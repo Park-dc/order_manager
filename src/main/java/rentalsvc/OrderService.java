@@ -36,4 +36,33 @@ public class OrderService {
     public void save(Order order){
         orderRepository.save(order);
     }
+
+    /**
+     * Rental 요청 취소처리 함   
+     * 
+     */
+    public void rentalCancel(Long orderId) {
+    	orderRepository.deleteByOrderId(orderId);
+    }
+    
+    /**
+     * Rental 요청 취소 
+     * 재고 부족 Event InventoryStockShortage 발생시  
+     * 
+     */
+
+    @StreamListener(KafkaProcessor.INPUT)
+    public void onInventoryStockShortage(@Payload InventoryStockShortage inventoryStockShortage) {
+    	
+        try {
+        	if (inventoryStockShortage.isMe()) {
+            	System.out.println("##### listener : " + inventoryStockShortage.toJson());
+                rentalCancel(inventoryStockShortage.getOrderId());
+                System.out.println("##### 랜탈 요청취소됨(재고부족) : " + inventoryStockShortage.getOrderId());
+        		}
+            }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

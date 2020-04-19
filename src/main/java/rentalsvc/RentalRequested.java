@@ -6,6 +6,7 @@ public class RentalRequested extends AbstractEvent {
     private Long orderId;
     private Long productId;
     private Long qty;
+    private Long amount;
 
     public RentalRequested(){
         super();
@@ -39,6 +40,14 @@ public class RentalRequested extends AbstractEvent {
 
 	public void setQty(Long qty) {
 		this.qty = qty;
+	}
+
+	public Long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Long amount) {
+		this.amount = amount;
 	}
 
 
