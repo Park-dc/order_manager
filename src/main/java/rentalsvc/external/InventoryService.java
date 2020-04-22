@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
-@FeignClient(name = "inventoryCheck", url = "http://localhost:8084")
+@FeignClient(name = "inventoryCheck", url = "http://inventorymanager:8080")
 public interface InventoryService {
 
     @RequestMapping(method = RequestMethod.GET, path = "/inventoryCheck")
