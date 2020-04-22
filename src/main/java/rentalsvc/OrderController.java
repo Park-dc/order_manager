@@ -8,8 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import rentalsvc.external.Inventory;
+import rentalsvc.external.InventoryService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
  @RestController
@@ -19,7 +25,7 @@ import java.util.List;
  OrderService orderService;
 	    
 @RequestMapping(value = "/rentalRequest",
-        method = RequestMethod.GET,
+        method = RequestMethod.POST,
         produces = "application/json;charset=UTF-8")
 
 public void rentalRequest(@RequestParam Long orderId,@RequestParam Long productId,@RequestParam Long qty,@RequestParam Long amount)
@@ -35,6 +41,11 @@ public void rentalRequest(@RequestParam Long orderId,@RequestParam Long productI
         rentalRequested.setAmount(amount);
         BeanUtils.copyProperties(this, rentalRequested);
         rentalRequested.publish();
+                
+        Long dd = Application.applicationContext.getBean(InventoryService.class).inventoryCheck(productId);
+        
+        System.out.println("-------------- Return Value --------------" + dd);
+        
         
         order.setOrderId(orderId);
         order.setProductId(productId);
